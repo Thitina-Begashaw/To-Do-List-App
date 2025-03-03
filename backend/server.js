@@ -1,7 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
-import ToDoRoute from "./Routes/ToDoRoute.js"
+import ToDoRoute from "./Route/ToDoRoute.js"
 import cors from 'cors';
 dotenv.config()
 const app = express();
