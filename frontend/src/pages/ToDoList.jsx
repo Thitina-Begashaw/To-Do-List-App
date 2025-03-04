@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { MdArrowBack } from 'react-icons/md'
+
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 const API_URL = "http://localhost:5000/api/ToDo"; // Backend URL
 
 const ToDoList = () => {
@@ -70,17 +73,21 @@ useEffect(() => {
             </form>
           
 {/* Task List */}
-<div className="mt-96  w-[450px] py-20  ml-72">
+<div className="mt-96  w-[450px] py-10  ml-72">
         {tasks.length > 0 ? (
           <ul className="space-y-4">
             {tasks.map((task) => (
-              <li key={task.id} className="border py-10 text-start  text-black rounded-lg shadow-md">
-          <p className="text-gray-500 text-sm -mt-8 mr-6 text-end">
+              <li key={task.id} className="border py-10 text-start  text-black rounded-lg shadow-md relative ">
+          
+                <h3 className="text-xl font-bold mb-6 ml-10 mt-3">{task.Title}</h3>
+                <p className="text-gray-600 ml-10 mb-5">{task.Description}</p>
+                <p className="text-gray-500 text-sm  mr-6 text-end">
             {task.date || new Date().toLocaleDateString()}
           </p>
-                <h3 className="text-xl font-bold mb-6 ml-10 mt-3">{task.Title}</h3>
-                <p className="text-gray-600 ml-10">{task.Description}</p>
-      
+                <div className="absolute top-4 right-4 flex space-x-3">
+             <button className="text-end" ><MdEdit/></button>
+             <button><MdDelete/></button>
+            </div>
               </li>
             ))}
           </ul>
