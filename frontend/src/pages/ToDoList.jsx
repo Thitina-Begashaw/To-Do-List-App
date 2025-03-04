@@ -60,7 +60,7 @@ useEffect(() => {
                 value={Title} 
                 onChange={(e) => setTitle(e.target.value)}/>
                 <label className='text-xl mb-3'>Description</label>
-                <textarea className='text-start border-2 border-purple-200 rounded-2xl p-12 ' 
+                <textarea className= "placeholder-shown:text-start  placeholder-shown:pt-4 border-2 border-purple-200 rounded-2xl py-20 "
                 type="text" 
                 placeholder='Description' 
                 value={Description}
@@ -73,11 +73,11 @@ useEffect(() => {
             </form>
           
 {/* Task List */}
-<div className="mt-96  w-[450px] py-10  ml-72">
+<div className="mt-96  w-[850px] py-30 ml-72  ">
         {tasks.length > 0 ? (
-          <ul className="space-y-4">
+          <ul className=" grid grid-cols-2 gap-10  ">
             {tasks.map((task) => (
-              <li key={task.id} className="border py-10 text-start  text-black rounded-lg shadow-md relative ">
+              <li key={task.id} className="border py-10  text-start  text-black rounded-lg shadow-md relative ">
           
                 <h3 className="text-xl font-bold mb-6 ml-10 mt-3">{task.Title}</h3>
                 <p className="text-gray-600 ml-10 mb-5">{task.Description}</p>
