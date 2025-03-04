@@ -70,13 +70,13 @@ useEffect(() => {
             </form>
           
 {/* Task List */}
-<div className="mt-96 p-5">
+<div className="mt-96  w-[450px] py-20  ml-72">
         {tasks.length > 0 ? (
           <ul className="space-y-4">
             {tasks.map((task) => (
-              <li key={task.id} className="border p-3 text-white rounded-lg shadow-md">
-                <h3 className="text-xl font-bold">{task.Title}</h3>
-                <p className="text-gray-600">{task.Description}</p>
+              <li key={task.id} className="border py-10 text-start  text-black rounded-lg shadow-md">
+                <h3 className="text-xl font-bold mb-6 ml-10 -mt-6">{task.Title}</h3>
+                <p className="text-gray-600 ml-10">{task.Description}</p>
               </li>
             ))}
           </ul>
