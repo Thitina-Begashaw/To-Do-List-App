@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { MdArrowBack } from 'react-icons/md'
-
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { formatDistanceToNow } from "date-fns";
+
 const API_URL = "http://localhost:5000/api/ToDo"; // Backend URL
 
 const ToDoList = () => {
     const [Title , setTitle] = useState("")
     const [Description , setDescription] = useState("")
     const [tasks, setTasks] = useState([]); // Stores tasks
+
+// Utility function to safely format time
+const getFormattedTimeAgo = (date) => {
+  if (!date || isNaN(new Date(date).getTime())) return "Unknown time";
+  return formatDistanceToNow(new Date(date), { addSuffix: true });
+};
+
+
 
 // Fetch tasks from the backend
 useEffect(() => {
@@ -18,6 +27,27 @@ useEffect(() => {
       .catch((error) => console.error("Error fetching tasks:", error));
   }, []);
 
+  
+  
+
+  const handleEdit = async (taskId, event) => {
+    event.preventDefault();
+    console.log("Title:", Title, "Description:", Description); // Debugging line
+    if (!Title || !Description) return;
+  
+    try {
+      const response = await axios.patch(`${API_URL}/${taskId}`, { Title, Description });
+  
+      // Update the task in the list instead of adding a new one
+      setTasks(tasks.map(task => (task.id === taskId ? response.data : task)));
+  
+      // Reset input fields
+      setTitle("");
+      setDescription("");
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
@@ -25,13 +55,17 @@ useEffect(() => {
 
     try {
       const response = await axios.post(API_URL, { Title, Description });
-      setTasks([...tasks, response.data]); // Update UI
-      setTitle("");
-      setDescription("");
-    } catch (error) {
-      console.error("Error adding task:", error);
-    }
-  };
+      setTasks([...tasks, {
+        ...response.data, 
+        createdAt: response.data.createdAt || new Date().toISOString(),
+    }]);
+
+    setTitle("");
+    setDescription("");
+} catch (error) {
+    console.error("Error adding task:", error);
+}
+};
     
     
         
@@ -82,10 +116,16 @@ useEffect(() => {
                 <h3 className="text-xl font-bold mb-6 ml-10 mt-3">{task.Title}</h3>
                 <p className="text-gray-600 ml-10 mb-5">{task.Description}</p>
                 <p className="text-gray-500 text-sm  mr-6 text-end">
-            {task.date || new Date().toLocaleDateString()}
+                {getFormattedTimeAgo(task.createdAt)}
           </p>
                 <div className="absolute top-4 right-4 flex space-x-3">
-             <button className="text-end" ><MdEdit/></button>
+                <button onClick={(e) => {
+    console.log("Task ID:", task.id); // Debugging line
+    handleEdit(task.id, e);
+}}>
+    <MdEdit />
+</button>
+
              <button><MdDelete/></button>
             </div>
               </li>
