@@ -67,6 +67,19 @@ useEffect(() => {
 }
 };
     
+
+// DELETE function to remove a task
+const handleDelete = async (taskId) => {
+  const isConfirmed = window.confirm("Are you sure you want to delete this task?");
+  if (!isConfirmed) return; // If user cancels, do nothing
+  try {
+    await axios.delete(`${API_URL}/${taskId}`);
+    setTasks(tasks.filter((task) => task._id !== taskId)); // Update state
+    console.log(`Task ${taskId} deleted successfully`);
+  } catch (error) {
+    console.error("Error deleting task:", error);
+  }
+};
     
         
   return (
@@ -126,7 +139,9 @@ useEffect(() => {
     <MdEdit />
 </button>
 
-             <button><MdDelete/></button>
+             <button onClick={() => handleDelete(task._id)}>
+              < MdDelete className="text-red-500 hover:text-red-700"/>
+              </button>
             </div>
               </li>
             ))}
