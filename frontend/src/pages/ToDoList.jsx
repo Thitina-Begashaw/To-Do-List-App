@@ -115,7 +115,7 @@ const handleDelete = async (taskId) => {
                 />
                 <div className="text-center ">
                 <button type='submit' className='text-xl bg-purple-300 rounded-2xl px-16 py-2  text-black m-10'>Add </button>
-                <button type='submit' className='text-xl bg-purple-300 rounded-2xl px-16 py-2  text-black'>Cancel </button> 
+                <button type='submit' className='text-xl bg-purple-300 hover:bg-amber-700 rounded-2xl px-16 py-2  text-black'>Cancel </button> 
                 </div>
             </form>
           

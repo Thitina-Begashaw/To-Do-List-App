@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 const HomePage = () => {
+  const navigate = useNavigate(); // Initialize navigation function
   return (
     <div className=" bg-[url('./assets/ToDoBg10.jpg')] bg-cover bg-center min-h-screen flex flex-col">
       
@@ -18,7 +20,7 @@ const HomePage = () => {
         <h1 class="mb-20 text-3xl md:text-3xl lg:text-5xl ">
           To-Do List App
         </h1>
-        <button class=" text-xl md:text-2xl lg:text-3xl  bg-green-500 px-4 py-2 md:px-5 md:py-3 lg:px-10 lg:py-4 rounded-full text-gray-300 font-bold">Start</button>
+        <button  onClick={() => navigate("/TodoList")}  class=" text-xl md:text-2xl lg:text-3xl  bg-green-500 px-4 py-2 md:px-5 md:py-3 lg:px-10 lg:py-4 rounded-full text-gray-300 font-bold">Start</button>
       </div>
     </div>
   );
