@@ -4,7 +4,7 @@ import { MdArrowBack } from 'react-icons/md'
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { formatDistanceToNow } from "date-fns";
-
+import { MdDashboard, MdAddTask, MdList, MdLogout } from "react-icons/md"; // Import icons
 const API_URL = "http://localhost:5000/api/ToDo"; // Backend URL
 
 const ToDoList = () => {
@@ -91,8 +91,25 @@ const handleDelete = async (taskId) => {
   <MdArrowBack />
 </button>
         </div>
-        <div className="fixed w-60 min-h-screen bg-purple-200 border-2 border-purple-300 ">
+        <div className="fixed w-60 min-h-screen bg-purple-200 border-2 border-purple-300 flex flex-col p-10 gap-6">
+               <div className="flex items-center gap-2 text-lg font-semibold hover:text-purple-500 cursor-pointer">
+            <MdDashboard className="text-xl" />
+           <p>Dashboard</p>
+         </div>
+         <div className="flex items-center gap-2 text-lg font-semibold hover:text-purple-500 cursor-pointer">
+    <MdAddTask className="text-xl" />
+    <p>Add Task</p>
+  </div>
 
+  <div className="flex items-center gap-2 text-lg font-semibold hover:text-purple-500 cursor-pointer">
+    <MdList className="text-xl" />
+    <p>My ToDo Lists</p>
+  </div>
+
+  <div className="flex items-center gap-2 text-lg font-semibold hover:text-red-500 cursor-pointer">
+    <MdLogout className="text-xl" />
+    <p>Logout</p>
+  </div>
         </div>
       
         <h1 className='text-start md:text-center lg:text-center ml-36 p-10 text-xs md:text-3xl lg:text-4xl font-extrabold'>Add Task</h1>
