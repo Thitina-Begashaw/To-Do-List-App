@@ -155,7 +155,7 @@ const handleDelete = async (taskId) => {
 
                 {/* ✅ Toggle Status Button */}
         <button onClick={(e) => handleStatus(task._id, task.Status, e)}>
-          <MdOutlineTaskAlt className={`text-${task.Status ? "gray-400" : "green-500"}`} />
+          <MdOutlineTaskAlt className={ "text-green-500 cursor-pointer" } />
         </button>
                 
              <button onClick={() => handleDelete(task._id)}>
