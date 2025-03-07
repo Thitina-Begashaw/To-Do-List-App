@@ -9,7 +9,12 @@ const ToDoSchema = new mongoose.Schema ({
   Description:{
     type:String,
     required:true,
-  }}, {timestamp:true}
+  },
+ Status:{
+  type:Boolean,
+  required:true,
+  default:false,
+ }}, {timestamp:true}
 )
 const ToDo = mongoose.model("ToDo" , ToDoSchema)
 export default ToDo;

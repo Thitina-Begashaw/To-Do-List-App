@@ -61,6 +61,33 @@ const updateToDoList = async(req,res)=>{
           res.status(500).json({ message: "Failed to delete the To Do List." });
         }
       };
+
+
+      const toggleToDoStatus = async (req, res) => {
+        const { id } = req.params;
+    
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({ message: "No To Do List with that id" });
+        }
+    
+        try {
+            const todoItem = await ToDo.findById(id);
+            if (!todoItem) {
+                return res.status(404).json({ message: "No To Do List with that id" });
+            }
+    
+            // Toggle the Status value
+            todoItem.Status = !todoItem.Status;
+            await todoItem.save();
+    
+            res.status(200).json(todoItem);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Error toggling the Status" });
+        }
+    };
+    
+
       
 
-export {createToDoList , updateToDoList , getToDoList , deleteToDoList};
+export {createToDoList , updateToDoList , getToDoList , deleteToDoList , toggleToDoStatus};
