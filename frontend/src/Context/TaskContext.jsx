@@ -2,7 +2,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "${process.env.REACT_APP_BACKEND_URL}/api/ToDo";
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/ToDo`;
 
 // Create Context
 const TaskContext = createContext();

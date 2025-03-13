@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { formatDistanceToNow } from "date-fns";
 import { MdDashboard, MdAddTask, MdList, MdLogout, MdOutlineTaskAlt } from "react-icons/md"; // Import icons
 
-const API_URL = "http://localhost:5000/api/ToDo"; // Backend URL
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/ToDo`; // Backend URL
 
 const ToDoList = () => {
     const [Title , setTitle] = useState("")
