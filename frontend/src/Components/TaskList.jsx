@@ -7,7 +7,6 @@ import Nav from "./Nav";
 
 const TaskList = () => {
   const { tasks, deleteTask, updateStatus } = useTasks();
-  console.log("Tasks in TaskList:", tasks); // Check if tasks are being passed correctly
 
   const getFormattedTimeAgo = (date) => {
     if (!date || isNaN(new Date(date).getTime())) return "Unknown time";

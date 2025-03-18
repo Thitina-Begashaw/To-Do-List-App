@@ -10,17 +10,16 @@ const TaskContext = createContext();
 
 // Create a Provider component to wrap your app
 export const TaskProvider = ({ children }) => {
-  const {  token } = UseAuth();
+  const {  token ,user} = UseAuth();
   const [tasks, setTasks] = useState([]);
 
-  console.log(token);
 
   // Fetch tasks from the API
   useEffect(() => {
     if (!token) return;
 
     axios
-      .get(API_URL, {
+      .get(API_URL+`/${user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
