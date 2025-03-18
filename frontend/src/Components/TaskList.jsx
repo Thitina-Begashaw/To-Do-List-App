@@ -6,7 +6,13 @@ import { formatDistanceToNow } from "date-fns";
 import Nav from "./Nav";
 
 const TaskList = () => {
-  const { tasks, deleteTask, updateStatus } = useTasks();
+  const {
+    tasks,
+    deleteTask,
+    updateStatus,
+    filteredCompletedTasks,
+    filteredPendingTasks,
+  } = useTasks();
 
   const getFormattedTimeAgo = (date) => {
     if (!date || isNaN(new Date(date).getTime())) return "Unknown time";
@@ -21,6 +27,17 @@ const TaskList = () => {
         <h1 className="text-3xl text-purple-500  font-extrabold  ml-52 -mt-[480px] text-center">
           My ToDo Lists
         </h1>
+      </div>
+      <div className="ml-64 flex gap-16 justify-center mt-10">
+        <div>
+          Total Todos <span>{tasks.length}</span>
+        </div>
+        <div>
+          Pending Todos <span>{filteredPendingTasks.length}</span>
+        </div>
+        <div>
+          Completed Todos <span>{filteredCompletedTasks.length}</span>
+        </div>
       </div>
       <div className="-mt-10 w-[850px] py-30 ml-72">
         {tasks.length > 0 ? (

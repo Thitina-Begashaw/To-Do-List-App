@@ -10,16 +10,17 @@ const TaskContext = createContext();
 
 // Create a Provider component to wrap your app
 export const TaskProvider = ({ children }) => {
-  const {  token ,user} = UseAuth();
+  const { token, user } = UseAuth();
   const [tasks, setTasks] = useState([]);
-
+  const [filteredCompletedTasks, setFilteredCompletedTasks] = useState([]);
+  const [filteredPendingTasks, setFilteredPendingTasks] = useState([]);
 
   // Fetch tasks from the API
   useEffect(() => {
     if (!token) return;
 
     axios
-      .get(API_URL+`/${user.id}`, {
+      .get(API_URL + `/${user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -32,6 +33,15 @@ export const TaskProvider = ({ children }) => {
         // setLoading(false);
       });
   }, [token]);
+
+  // Filter tasks based on their status (completed vs pending)
+  useEffect(() => {
+    const completed = tasks.filter((task) => task.Status === true);
+    const pending = tasks.filter((task) => task.Status === false);
+
+    setFilteredCompletedTasks(completed);
+    setFilteredPendingTasks(pending);
+  }, [tasks]);
 
   const addTask = async (title, description) => {
     if (!token) return;
@@ -47,8 +57,10 @@ export const TaskProvider = ({ children }) => {
         }
       );
       setTasks((prevTasks) => [...prevTasks, response.data]);
+
     } catch (error) {
       console.error("Error adding task:", error);
+      
     }
   };
 
@@ -96,10 +108,17 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
-
-
   return (
-    <TaskContext.Provider value={{ tasks, addTask, deleteTask, updateStatus }}>
+    <TaskContext.Provider
+      value={{
+        tasks,
+        addTask,
+        deleteTask,
+        updateStatus,
+        filteredCompletedTasks,
+        filteredPendingTasks,
+      }}
+    >
       {children}
     </TaskContext.Provider>
   );
